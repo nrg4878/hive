@@ -351,13 +351,13 @@ import org.slf4j.LoggerFactory;
           case 1: // NAMES
             if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
               {
-                org.apache.thrift.protocol.TList _list1248 = iprot.readListBegin();
-                struct.names = new ArrayList<String>(_list1248.size);
-                String _elem1249;
-                for (int _i1250 = 0; _i1250 < _list1248.size; ++_i1250)
+                org.apache.thrift.protocol.TList _list1268 = iprot.readListBegin();
+                struct.names = new ArrayList<String>(_list1268.size);
+                String _elem1269;
+                for (int _i1270 = 0; _i1270 < _list1268.size; ++_i1270)
                 {
-                  _elem1249 = iprot.readString();
-                  struct.names.add(_elem1249);
+                  _elem1269 = iprot.readString();
+                  struct.names.add(_elem1269);
                 }
                 iprot.readListEnd();
               }
@@ -383,9 +383,9 @@ import org.slf4j.LoggerFactory;
         oprot.writeFieldBegin(NAMES_FIELD_DESC);
         {
           oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, struct.names.size()));
-          for (String _iter1251 : struct.names)
+          for (String _iter1271 : struct.names)
           {
-            oprot.writeString(_iter1251);
+            oprot.writeString(_iter1271);
           }
           oprot.writeListEnd();
         }
@@ -410,9 +410,9 @@ import org.slf4j.LoggerFactory;
       TTupleProtocol oprot = (TTupleProtocol) prot;
       {
         oprot.writeI32(struct.names.size());
-        for (String _iter1252 : struct.names)
+        for (String _iter1272 : struct.names)
         {
-          oprot.writeString(_iter1252);
+          oprot.writeString(_iter1272);
         }
       }
     }
@@ -421,13 +421,13 @@ import org.slf4j.LoggerFactory;
     public void read(org.apache.thrift.protocol.TProtocol prot, GetPartitionNamesPsResponse struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       {
-        org.apache.thrift.protocol.TList _list1253 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, iprot.readI32());
-        struct.names = new ArrayList<String>(_list1253.size);
-        String _elem1254;
-        for (int _i1255 = 0; _i1255 < _list1253.size; ++_i1255)
+        org.apache.thrift.protocol.TList _list1273 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, iprot.readI32());
+        struct.names = new ArrayList<String>(_list1273.size);
+        String _elem1274;
+        for (int _i1275 = 0; _i1275 < _list1273.size; ++_i1275)
         {
-          _elem1254 = iprot.readString();
-          struct.names.add(_elem1254);
+          _elem1274 = iprot.readString();
+          struct.names.add(_elem1274);
         }
       }
       struct.setNamesIsSet(true);

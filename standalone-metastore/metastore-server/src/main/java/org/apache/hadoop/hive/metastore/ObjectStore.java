@@ -78,95 +78,7 @@ import org.apache.hadoop.hive.common.TableName;
 import org.apache.hadoop.hive.common.ValidReaderWriteIdList;
 import org.apache.hadoop.hive.common.ValidWriteIdList;
 import org.apache.hadoop.hive.metastore.MetaStoreDirectSql.SqlFilterForPushdown;
-import org.apache.hadoop.hive.metastore.api.AggrStats;
-import org.apache.hadoop.hive.metastore.api.AlreadyExistsException;
-import org.apache.hadoop.hive.metastore.api.Catalog;
-import org.apache.hadoop.hive.metastore.api.ColumnStatistics;
-import org.apache.hadoop.hive.metastore.api.ColumnStatisticsDesc;
-import org.apache.hadoop.hive.metastore.api.ColumnStatisticsObj;
-import org.apache.hadoop.hive.metastore.api.CreationMetadata;
-import org.apache.hadoop.hive.metastore.api.CurrentNotificationEventId;
-import org.apache.hadoop.hive.metastore.api.Database;
-import org.apache.hadoop.hive.metastore.api.FieldSchema;
-import org.apache.hadoop.hive.metastore.api.FileMetadataExprType;
-import org.apache.hadoop.hive.metastore.api.Function;
-import org.apache.hadoop.hive.metastore.api.FunctionType;
-import org.apache.hadoop.hive.metastore.api.GetPartitionsFilterSpec;
-import org.apache.hadoop.hive.metastore.api.GetPartitionsProjectionSpec;
-import org.apache.hadoop.hive.metastore.api.HiveObjectPrivilege;
-import org.apache.hadoop.hive.metastore.api.HiveObjectRef;
-import org.apache.hadoop.hive.metastore.api.HiveObjectType;
-import org.apache.hadoop.hive.metastore.api.ISchema;
-import org.apache.hadoop.hive.metastore.api.ISchemaName;
-import org.apache.hadoop.hive.metastore.api.InvalidInputException;
-import org.apache.hadoop.hive.metastore.api.InvalidObjectException;
-import org.apache.hadoop.hive.metastore.api.InvalidOperationException;
-import org.apache.hadoop.hive.metastore.api.InvalidPartitionException;
-import org.apache.hadoop.hive.metastore.api.MetaException;
-import org.apache.hadoop.hive.metastore.api.NoSuchObjectException;
-import org.apache.hadoop.hive.metastore.api.NotificationEvent;
-import org.apache.hadoop.hive.metastore.api.NotificationEventRequest;
-import org.apache.hadoop.hive.metastore.api.NotificationEventResponse;
-import org.apache.hadoop.hive.metastore.api.NotificationEventsCountRequest;
-import org.apache.hadoop.hive.metastore.api.NotificationEventsCountResponse;
-import org.apache.hadoop.hive.metastore.api.Order;
-import org.apache.hadoop.hive.metastore.api.Partition;
-import org.apache.hadoop.hive.metastore.api.PartitionEventType;
-import org.apache.hadoop.hive.metastore.api.PartitionFilterMode;
-import org.apache.hadoop.hive.metastore.api.PartitionValuesResponse;
-import org.apache.hadoop.hive.metastore.api.PartitionValuesRow;
-import org.apache.hadoop.hive.metastore.api.PrincipalPrivilegeSet;
-import org.apache.hadoop.hive.metastore.api.PrincipalType;
-import org.apache.hadoop.hive.metastore.api.PrivilegeBag;
-import org.apache.hadoop.hive.metastore.api.PrivilegeGrantInfo;
-import org.apache.hadoop.hive.metastore.api.QueryState;
-import org.apache.hadoop.hive.metastore.api.ResourceType;
-import org.apache.hadoop.hive.metastore.api.ResourceUri;
-import org.apache.hadoop.hive.metastore.api.Role;
-import org.apache.hadoop.hive.metastore.api.RolePrincipalGrant;
-import org.apache.hadoop.hive.metastore.api.RuntimeStat;
-import org.apache.hadoop.hive.metastore.api.ReplicationMetricList;
-import org.apache.hadoop.hive.metastore.api.GetReplicationMetricsRequest;
-import org.apache.hadoop.hive.metastore.api.ReplicationMetrics;
-import org.apache.hadoop.hive.metastore.api.SQLCheckConstraint;
-import org.apache.hadoop.hive.metastore.api.SQLDefaultConstraint;
-import org.apache.hadoop.hive.metastore.api.SQLForeignKey;
-import org.apache.hadoop.hive.metastore.api.SQLNotNullConstraint;
-import org.apache.hadoop.hive.metastore.api.SQLPrimaryKey;
-import org.apache.hadoop.hive.metastore.api.SQLUniqueConstraint;
-import org.apache.hadoop.hive.metastore.api.ScheduledQuery;
-import org.apache.hadoop.hive.metastore.api.ScheduledQueryKey;
-import org.apache.hadoop.hive.metastore.api.ScheduledQueryMaintenanceRequest;
-import org.apache.hadoop.hive.metastore.api.ScheduledQueryPollRequest;
-import org.apache.hadoop.hive.metastore.api.ScheduledQueryPollResponse;
-import org.apache.hadoop.hive.metastore.api.ScheduledQueryProgressInfo;
-import org.apache.hadoop.hive.metastore.api.SchemaCompatibility;
-import org.apache.hadoop.hive.metastore.api.SchemaType;
-import org.apache.hadoop.hive.metastore.api.SchemaValidation;
-import org.apache.hadoop.hive.metastore.api.SchemaVersion;
-import org.apache.hadoop.hive.metastore.api.SchemaVersionDescriptor;
-import org.apache.hadoop.hive.metastore.api.SchemaVersionState;
-import org.apache.hadoop.hive.metastore.api.SerDeInfo;
-import org.apache.hadoop.hive.metastore.api.SerdeType;
-import org.apache.hadoop.hive.metastore.api.SkewedInfo;
-import org.apache.hadoop.hive.metastore.api.StorageDescriptor;
-import org.apache.hadoop.hive.metastore.api.Table;
-import org.apache.hadoop.hive.metastore.api.TableMeta;
-import org.apache.hadoop.hive.metastore.api.Type;
-import org.apache.hadoop.hive.metastore.api.UnknownDBException;
-import org.apache.hadoop.hive.metastore.api.UnknownPartitionException;
-import org.apache.hadoop.hive.metastore.api.UnknownTableException;
-import org.apache.hadoop.hive.metastore.api.WMFullResourcePlan;
-import org.apache.hadoop.hive.metastore.api.WMMapping;
-import org.apache.hadoop.hive.metastore.api.WMNullablePool;
-import org.apache.hadoop.hive.metastore.api.WMNullableResourcePlan;
-import org.apache.hadoop.hive.metastore.api.WMPool;
-import org.apache.hadoop.hive.metastore.api.WMPoolTrigger;
-import org.apache.hadoop.hive.metastore.api.WMResourcePlan;
-import org.apache.hadoop.hive.metastore.api.WMResourcePlanStatus;
-import org.apache.hadoop.hive.metastore.api.WMTrigger;
-import org.apache.hadoop.hive.metastore.api.WMValidateResourcePlanResponse;
-import org.apache.hadoop.hive.metastore.api.WriteEventInfo;
+import org.apache.hadoop.hive.metastore.api.*;
 import org.apache.hadoop.hive.metastore.conf.MetastoreConf;
 import org.apache.hadoop.hive.metastore.conf.MetastoreConf.ConfVars;
 import org.apache.hadoop.hive.metastore.metrics.Metrics;
@@ -177,6 +89,7 @@ import org.apache.hadoop.hive.metastore.model.MColumnDescriptor;
 import org.apache.hadoop.hive.metastore.model.MConstraint;
 import org.apache.hadoop.hive.metastore.model.MCreationMetadata;
 import org.apache.hadoop.hive.metastore.model.MDBPrivilege;
+import org.apache.hadoop.hive.metastore.model.MDataConnector;
 import org.apache.hadoop.hive.metastore.model.MDatabase;
 import org.apache.hadoop.hive.metastore.model.MDelegationToken;
 import org.apache.hadoop.hive.metastore.model.MFieldSchema;
@@ -777,6 +690,13 @@ public class ObjectStore implements RawStore, Configurable {
     mdb.setDescription(db.getDescription());
     mdb.setParameters(db.getParameters());
     mdb.setOwnerName(db.getOwnerName());
+    mdb.setDataConnectorName(db.getConnector_name());
+    mdb.setRemoteDatabaseName(db.getRemote_dbname());
+    if (db.getType() == DatabaseType.NATIVE) {
+      mdb.setType("NATIVE");
+    } else {
+      mdb.setType("REMOTE");
+    }
     PrincipalType ownerType = db.getOwnerType();
     mdb.setOwnerType((null == ownerType ? PrincipalType.USER.name() : ownerType.name()));
     mdb.setCreateTime(db.getCreateTime());
@@ -867,13 +787,20 @@ public class ObjectStore implements RawStore, Configurable {
     Database db = new Database();
     db.setName(mdb.getName());
     db.setDescription(mdb.getDescription());
-    db.setLocationUri(mdb.getLocationUri());
-    db.setManagedLocationUri(org.apache.commons.lang3.StringUtils.defaultIfBlank(mdb.getManagedLocationUri(), null));
     db.setParameters(convertMap(mdb.getParameters()));
     db.setOwnerName(mdb.getOwnerName());
     String type = org.apache.commons.lang3.StringUtils.defaultIfBlank(mdb.getOwnerType(), null);
     PrincipalType principalType = (type == null) ? null : PrincipalType.valueOf(type);
     db.setOwnerType(principalType);
+    if (mdb.getType().equalsIgnoreCase("NATIVE")) {
+      db.setType(DatabaseType.NATIVE);
+      db.setLocationUri(mdb.getLocationUri());
+      db.setManagedLocationUri(org.apache.commons.lang3.StringUtils.defaultIfBlank(mdb.getManagedLocationUri(), null));
+    } else {
+      db.setType(DatabaseType.REMOTE);
+      db.setConnector_name(org.apache.commons.lang3.StringUtils.defaultIfBlank(mdb.getDataConnectorName(), null));
+      db.setRemote_dbname(org.apache.commons.lang3.StringUtils.defaultIfBlank(mdb.getRemoteDatabaseName(), null));
+    }
     db.setCatalogName(catName);
     db.setCreateTime(mdb.getCreateTime());
     return db;
@@ -997,6 +924,203 @@ public class ObjectStore implements RawStore, Configurable {
     Collections.sort(databases);
     return databases;
   }
+
+  @Override
+  public void createDataConnector(DataConnector connector) throws InvalidObjectException, MetaException {
+    boolean commited = false;
+    MDataConnector mDataConnector = new MDataConnector();
+    mDataConnector.setName(connector.getName().toLowerCase());
+    mDataConnector.setType(connector.getType());
+    mDataConnector.setUrl(connector.getUrl());
+    mDataConnector.setDescription(connector.getDescription());
+    mDataConnector.setParameters(connector.getParameters());
+    mDataConnector.setOwnerName(connector.getOwnerName());
+    PrincipalType ownerType = connector.getOwnerType();
+    mDataConnector.setOwnerType((null == ownerType ? PrincipalType.USER.name() : ownerType.name()));
+    mDataConnector.setCreateTime(connector.getCreateTime());
+    try {
+      openTransaction();
+      pm.makePersistent(mDataConnector);
+      commited = commitTransaction();
+    } finally {
+      if (!commited) {
+        rollbackTransaction();
+      }
+    }
+  }
+
+  @SuppressWarnings("nls")
+  private MDataConnector getMDataConnector(String name) throws NoSuchObjectException {
+    MDataConnector mdc = null;
+    boolean commited = false;
+    Query query = null;
+    try {
+      openTransaction();
+      name = normalizeIdentifier(name);
+      query = pm.newQuery(MDataConnector.class, "name == dcname");
+      query.declareParameters("java.lang.String dcname");
+      query.setUnique(true);
+      mdc = (MDataConnector) query.execute(name);
+      pm.retrieve(mdc);
+      commited = commitTransaction();
+    } finally {
+      rollbackAndCleanup(commited, query);
+    }
+    if (mdc == null) {
+      throw new NoSuchObjectException("There is no dataconnector " + name);
+    }
+    return mdc;
+  }
+
+  @Override
+  public DataConnector getDataConnector(String name) throws NoSuchObjectException {
+    MDataConnector mdc = null;
+    boolean commited = false;
+    try {
+      openTransaction();
+      mdc = getMDataConnector(name);
+      commited = commitTransaction();
+    } catch (NoSuchObjectException no) {
+      throw new NoSuchObjectException("Dataconnector named " + name + " does not exist:" + no.getCause());
+    } finally {
+      if (!commited) {
+        rollbackTransaction();
+      }
+    }
+    DataConnector connector = new DataConnector();
+    connector.setName(mdc.getName());
+    connector.setType(mdc.getType());
+    connector.setUrl(mdc.getUrl());
+    connector.setDescription(mdc.getDescription());
+    connector.setParameters(convertMap(mdc.getParameters()));
+    connector.setOwnerName(mdc.getOwnerName());
+    String type = org.apache.commons.lang3.StringUtils.defaultIfBlank(mdc.getOwnerType(), null);
+    PrincipalType principalType = (type == null) ? null : PrincipalType.valueOf(type);
+    connector.setOwnerType(principalType);
+    connector.setCreateTime(mdc.getCreateTime());
+    return connector;
+  }
+
+  @Override
+  public List<String> getAllDataConnectors() throws MetaException {
+    boolean commited = false;
+    List<String> connectors = null;
+    Query query = null;
+    try {
+      openTransaction();
+      query = pm.newQuery(MDataConnector.class);
+      query.setResult("name");
+      query.setOrdering("name ascending");
+      Collection<String> names = (Collection<String>) query.executeWithArray();
+      connectors = new ArrayList<>(names);
+      commited = commitTransaction();
+    } finally {
+      rollbackAndCleanup(commited, query);
+    }
+    return connectors;
+  }
+
+  /**
+   * Alter the dataconnector object in metastore. Currently only the parameters
+   * of the dataconnector or the owner can be changed.
+   * @param dcName the dataconnector name
+   * @param connector the Hive DataConnector object
+   */
+  @Override
+  public boolean alterDataConnector(String dcName, DataConnector connector)
+      throws MetaException, NoSuchObjectException {
+
+    MDataConnector mdc = null;
+    boolean committed = false;
+    try {
+      mdc = getMDataConnector(dcName);
+      mdc.setUrl(connector.getUrl());
+      mdc.setParameters(connector.getParameters());
+      mdc.setOwnerName(connector.getOwnerName());
+      if (connector.getOwnerType() != null) {
+        mdc.setOwnerType(connector.getOwnerType().name());
+      }
+      if (org.apache.commons.lang3.StringUtils.isNotBlank(connector.getDescription())) {
+        mdc.setDescription(connector.getDescription());
+      }
+      openTransaction();
+      pm.makePersistent(mdc);
+      committed = commitTransaction();
+    } finally {
+      if (!committed) {
+        rollbackTransaction();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean dropDataConnector(String dcname)
+      throws NoSuchObjectException, MetaException {
+    boolean success = false;
+    LOG.info("Dropping dataconnector {} ", dcname);
+    dcname = normalizeIdentifier(dcname);
+    try {
+      openTransaction();
+
+      // then drop the dataconnector
+      MDataConnector mdb = getMDataConnector(dcname);
+      pm.retrieve(mdb);
+      pm.deletePersistent(mdb);
+      success = commitTransaction();
+    } catch (Exception e) {
+      throw new MetaException(e.getMessage() + " " + org.apache.hadoop.hive.metastore.utils.StringUtils.stringifyException(e));
+    } finally {
+      rollbackAndCleanup(success, null);
+    }
+    return success;
+  }
+
+  /*
+  public DataConnector getDataConnectorInternal(String name)
+      throws MetaException, NoSuchObjectException {
+    return new GetDcHelper(name, true, true) {
+      @Override
+      protected DataConnector getSqlResult(GetHelper<DataConnector> ctx) throws MetaException {
+        try {
+        return getJDODataConnector(name);
+      }
+
+      @Override
+      protected DataConnector getJdoResult(GetHelper<DataConnector> ctx) throws MetaException, NoSuchObjectException {
+        return getJDODataConnector(name);
+      }
+    }.run(false);
+  }
+
+  private DataConnector getDataConnectorInternal(String name) throws NoSuchObjectException {
+    MDataConnector mdc = null;
+    boolean commited = false;
+    try {
+      openTransaction();
+      mdc = getMDataConnector(name);
+      commited = commitTransaction();
+    } finally {
+      if (!commited) {
+        rollbackTransaction();
+      }
+    }
+    DataConnector connector = new DataConnector();
+    connector.setName(mdc.getName());
+    connector.setType(mdc.getType());
+    connector.setUrl(mdc.getUrl());
+    connector.setDescription(mdc.getDescription());
+    connector.setParameters(convertMap(mdc.getParameters()));
+    connector.setOwnerName(mdc.getOwnerName());
+    String type = org.apache.commons.lang3.StringUtils.defaultIfBlank(mdc.getOwnerType(), null);
+    PrincipalType principalType = (type == null) ? null : PrincipalType.valueOf(type);
+    connector.setOwnerType(principalType);
+    connector.setCreateTime(mdc.getCreateTime());
+    return connector;
+  }
+   */
+
 
   private MType getMType(Type type) {
     List<MFieldSchema> fields = new ArrayList<>();

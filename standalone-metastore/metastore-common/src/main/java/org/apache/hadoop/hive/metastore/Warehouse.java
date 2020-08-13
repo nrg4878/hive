@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.common.TableName;
 import org.apache.hadoop.hive.metastore.api.Catalog;
+import org.apache.hadoop.hive.metastore.api.DatabaseType;
 import org.apache.hadoop.hive.metastore.conf.MetastoreConf;
 import org.apache.hadoop.hive.metastore.conf.MetastoreConf.ConfVars;
 import org.apache.hadoop.hive.metastore.utils.FileUtils;
@@ -191,6 +192,9 @@ public class Warehouse {
    * file system.
    */
   public Path determineDatabasePath(Catalog cat, Database db) throws MetaException {
+    if (db.getType() == DatabaseType.REMOTE) {
+      return getRemoteDatabasePath();
+    }
     if (db.isSetLocationUri()) {
       return getDnsPath(new Path(db.getLocationUri()));
     }
@@ -241,7 +245,7 @@ public class Warehouse {
       Path dbPath = new Path(db.getLocationUri());
       if (FileUtils.isSubdirectory(getWhRoot().toString(), dbPath.toString() + Path.SEPARATOR)) {
         // db metadata incorrect, find new location based on external warehouse root
-        dbPath = getDefaultExternalDatabasePath(db.getName());
+        dbPath = getDefaultDatabaseExternalPath(db.getName());
       }
       return getDnsPath(dbPath);
   }
@@ -277,7 +281,7 @@ public class Warehouse {
     return getDefaultDatabasePath(dbName, false);
   }
 
-  public Path getDefaultExternalDatabasePath(String dbName) throws MetaException {
+  public Path getDefaultDatabaseExternalPath(String dbName) throws MetaException {
     return getDefaultDatabasePath(dbName, true);
   }
 
@@ -294,6 +298,10 @@ public class Warehouse {
       }
       return new Path(getWhRoot(), dbName.toLowerCase() + DATABASE_WAREHOUSE_SUFFIX);
     }
+  }
+
+  public Path getRemoteDatabasePath() throws MetaException {
+    return new Path(getWhRootExternal(), "dummy_path_for_remote_database.db");
   }
 
   private boolean hasExternalWarehouseRoot() {
@@ -319,7 +327,7 @@ public class Warehouse {
       dbPath = new Path(db.getLocationUri());
       if (FileUtils.isSubdirectory(getWhRoot().toString(), dbPath.toString() + Path.SEPARATOR)) {
         // db metadata incorrect, find new location based on external warehouse root
-        dbPath = getDefaultExternalDatabasePath(db.getName());
+        dbPath = getDefaultDatabaseExternalPath(db.getName());
       }
     } else {
       if (isTenantBasedStorage) {
@@ -342,7 +350,7 @@ public class Warehouse {
   public Path getDefaultTablePath(String dbName, String tableName, boolean isExternal) throws MetaException {
     Path dbPath = null;
     if (isExternal && hasExternalWarehouseRoot()) {
-      dbPath = getDefaultExternalDatabasePath(dbName);
+      dbPath = getDefaultDatabaseExternalPath(dbName);
     } else {
       dbPath = getDefaultDatabasePath(dbName);
     }
