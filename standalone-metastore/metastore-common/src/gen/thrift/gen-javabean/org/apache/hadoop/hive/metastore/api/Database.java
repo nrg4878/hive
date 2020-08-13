@@ -48,6 +48,9 @@ import org.slf4j.LoggerFactory;
   private static final org.apache.thrift.protocol.TField CATALOG_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("catalogName", org.apache.thrift.protocol.TType.STRING, (short)8);
   private static final org.apache.thrift.protocol.TField CREATE_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("createTime", org.apache.thrift.protocol.TType.I32, (short)9);
   private static final org.apache.thrift.protocol.TField MANAGED_LOCATION_URI_FIELD_DESC = new org.apache.thrift.protocol.TField("managedLocationUri", org.apache.thrift.protocol.TType.STRING, (short)10);
+  private static final org.apache.thrift.protocol.TField TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("type", org.apache.thrift.protocol.TType.I32, (short)11);
+  private static final org.apache.thrift.protocol.TField CONNECTOR_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("connector_name", org.apache.thrift.protocol.TType.STRING, (short)12);
+  private static final org.apache.thrift.protocol.TField REMOTE_DBNAME_FIELD_DESC = new org.apache.thrift.protocol.TField("remote_dbname", org.apache.thrift.protocol.TType.STRING, (short)13);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -65,6 +68,9 @@ import org.slf4j.LoggerFactory;
   private String catalogName; // optional
   private int createTime; // optional
   private String managedLocationUri; // optional
+  private DatabaseType type; // optional
+  private String connector_name; // optional
+  private String remote_dbname; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -81,7 +87,14 @@ import org.slf4j.LoggerFactory;
     OWNER_TYPE((short)7, "ownerType"),
     CATALOG_NAME((short)8, "catalogName"),
     CREATE_TIME((short)9, "createTime"),
-    MANAGED_LOCATION_URI((short)10, "managedLocationUri");
+    MANAGED_LOCATION_URI((short)10, "managedLocationUri"),
+    /**
+     * 
+     * @see DatabaseType
+     */
+    TYPE((short)11, "type"),
+    CONNECTOR_NAME((short)12, "connector_name"),
+    REMOTE_DBNAME((short)13, "remote_dbname");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -116,6 +129,12 @@ import org.slf4j.LoggerFactory;
           return CREATE_TIME;
         case 10: // MANAGED_LOCATION_URI
           return MANAGED_LOCATION_URI;
+        case 11: // TYPE
+          return TYPE;
+        case 12: // CONNECTOR_NAME
+          return CONNECTOR_NAME;
+        case 13: // REMOTE_DBNAME
+          return REMOTE_DBNAME;
         default:
           return null;
       }
@@ -158,7 +177,7 @@ import org.slf4j.LoggerFactory;
   // isset id assignments
   private static final int __CREATETIME_ISSET_ID = 0;
   private byte __isset_bitfield = 0;
-  private static final _Fields optionals[] = {_Fields.PRIVILEGES,_Fields.OWNER_NAME,_Fields.OWNER_TYPE,_Fields.CATALOG_NAME,_Fields.CREATE_TIME,_Fields.MANAGED_LOCATION_URI};
+  private static final _Fields optionals[] = {_Fields.PRIVILEGES,_Fields.OWNER_NAME,_Fields.OWNER_TYPE,_Fields.CATALOG_NAME,_Fields.CREATE_TIME,_Fields.MANAGED_LOCATION_URI,_Fields.TYPE,_Fields.CONNECTOR_NAME,_Fields.REMOTE_DBNAME};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -183,6 +202,12 @@ import org.slf4j.LoggerFactory;
     tmpMap.put(_Fields.CREATE_TIME, new org.apache.thrift.meta_data.FieldMetaData("createTime", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.MANAGED_LOCATION_URI, new org.apache.thrift.meta_data.FieldMetaData("managedLocationUri", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.TYPE, new org.apache.thrift.meta_data.FieldMetaData("type", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, DatabaseType.class)));
+    tmpMap.put(_Fields.CONNECTOR_NAME, new org.apache.thrift.meta_data.FieldMetaData("connector_name", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.REMOTE_DBNAME, new org.apache.thrift.meta_data.FieldMetaData("remote_dbname", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Database.class, metaDataMap);
@@ -238,6 +263,15 @@ import org.slf4j.LoggerFactory;
     if (other.isSetManagedLocationUri()) {
       this.managedLocationUri = other.managedLocationUri;
     }
+    if (other.isSetType()) {
+      this.type = other.type;
+    }
+    if (other.isSetConnector_name()) {
+      this.connector_name = other.connector_name;
+    }
+    if (other.isSetRemote_dbname()) {
+      this.remote_dbname = other.remote_dbname;
+    }
   }
 
   public Database deepCopy() {
@@ -257,6 +291,9 @@ import org.slf4j.LoggerFactory;
     setCreateTimeIsSet(false);
     this.createTime = 0;
     this.managedLocationUri = null;
+    this.type = null;
+    this.connector_name = null;
+    this.remote_dbname = null;
   }
 
   public String getName() {
@@ -507,6 +544,83 @@ import org.slf4j.LoggerFactory;
     }
   }
 
+  /**
+   * 
+   * @see DatabaseType
+   */
+  public DatabaseType getType() {
+    return this.type;
+  }
+
+  /**
+   * 
+   * @see DatabaseType
+   */
+  public void setType(DatabaseType type) {
+    this.type = type;
+  }
+
+  public void unsetType() {
+    this.type = null;
+  }
+
+  /** Returns true if field type is set (has been assigned a value) and false otherwise */
+  public boolean isSetType() {
+    return this.type != null;
+  }
+
+  public void setTypeIsSet(boolean value) {
+    if (!value) {
+      this.type = null;
+    }
+  }
+
+  public String getConnector_name() {
+    return this.connector_name;
+  }
+
+  public void setConnector_name(String connector_name) {
+    this.connector_name = connector_name;
+  }
+
+  public void unsetConnector_name() {
+    this.connector_name = null;
+  }
+
+  /** Returns true if field connector_name is set (has been assigned a value) and false otherwise */
+  public boolean isSetConnector_name() {
+    return this.connector_name != null;
+  }
+
+  public void setConnector_nameIsSet(boolean value) {
+    if (!value) {
+      this.connector_name = null;
+    }
+  }
+
+  public String getRemote_dbname() {
+    return this.remote_dbname;
+  }
+
+  public void setRemote_dbname(String remote_dbname) {
+    this.remote_dbname = remote_dbname;
+  }
+
+  public void unsetRemote_dbname() {
+    this.remote_dbname = null;
+  }
+
+  /** Returns true if field remote_dbname is set (has been assigned a value) and false otherwise */
+  public boolean isSetRemote_dbname() {
+    return this.remote_dbname != null;
+  }
+
+  public void setRemote_dbnameIsSet(boolean value) {
+    if (!value) {
+      this.remote_dbname = null;
+    }
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
     case NAME:
@@ -589,6 +703,30 @@ import org.slf4j.LoggerFactory;
       }
       break;
 
+    case TYPE:
+      if (value == null) {
+        unsetType();
+      } else {
+        setType((DatabaseType)value);
+      }
+      break;
+
+    case CONNECTOR_NAME:
+      if (value == null) {
+        unsetConnector_name();
+      } else {
+        setConnector_name((String)value);
+      }
+      break;
+
+    case REMOTE_DBNAME:
+      if (value == null) {
+        unsetRemote_dbname();
+      } else {
+        setRemote_dbname((String)value);
+      }
+      break;
+
     }
   }
 
@@ -624,6 +762,15 @@ import org.slf4j.LoggerFactory;
     case MANAGED_LOCATION_URI:
       return getManagedLocationUri();
 
+    case TYPE:
+      return getType();
+
+    case CONNECTOR_NAME:
+      return getConnector_name();
+
+    case REMOTE_DBNAME:
+      return getRemote_dbname();
+
     }
     throw new IllegalStateException();
   }
@@ -655,6 +802,12 @@ import org.slf4j.LoggerFactory;
       return isSetCreateTime();
     case MANAGED_LOCATION_URI:
       return isSetManagedLocationUri();
+    case TYPE:
+      return isSetType();
+    case CONNECTOR_NAME:
+      return isSetConnector_name();
+    case REMOTE_DBNAME:
+      return isSetRemote_dbname();
     }
     throw new IllegalStateException();
   }
@@ -762,6 +915,33 @@ import org.slf4j.LoggerFactory;
         return false;
     }
 
+    boolean this_present_type = true && this.isSetType();
+    boolean that_present_type = true && that.isSetType();
+    if (this_present_type || that_present_type) {
+      if (!(this_present_type && that_present_type))
+        return false;
+      if (!this.type.equals(that.type))
+        return false;
+    }
+
+    boolean this_present_connector_name = true && this.isSetConnector_name();
+    boolean that_present_connector_name = true && that.isSetConnector_name();
+    if (this_present_connector_name || that_present_connector_name) {
+      if (!(this_present_connector_name && that_present_connector_name))
+        return false;
+      if (!this.connector_name.equals(that.connector_name))
+        return false;
+    }
+
+    boolean this_present_remote_dbname = true && this.isSetRemote_dbname();
+    boolean that_present_remote_dbname = true && that.isSetRemote_dbname();
+    if (this_present_remote_dbname || that_present_remote_dbname) {
+      if (!(this_present_remote_dbname && that_present_remote_dbname))
+        return false;
+      if (!this.remote_dbname.equals(that.remote_dbname))
+        return false;
+    }
+
     return true;
   }
 
@@ -818,6 +998,21 @@ import org.slf4j.LoggerFactory;
     list.add(present_managedLocationUri);
     if (present_managedLocationUri)
       list.add(managedLocationUri);
+
+    boolean present_type = true && (isSetType());
+    list.add(present_type);
+    if (present_type)
+      list.add(type.getValue());
+
+    boolean present_connector_name = true && (isSetConnector_name());
+    list.add(present_connector_name);
+    if (present_connector_name)
+      list.add(connector_name);
+
+    boolean present_remote_dbname = true && (isSetRemote_dbname());
+    list.add(present_remote_dbname);
+    if (present_remote_dbname)
+      list.add(remote_dbname);
 
     return list.hashCode();
   }
@@ -930,6 +1125,36 @@ import org.slf4j.LoggerFactory;
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetType()).compareTo(other.isSetType());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetType()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.type, other.type);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetConnector_name()).compareTo(other.isSetConnector_name());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetConnector_name()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.connector_name, other.connector_name);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetRemote_dbname()).compareTo(other.isSetRemote_dbname());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetRemote_dbname()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.remote_dbname, other.remote_dbname);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     return 0;
   }
 
@@ -1034,6 +1259,36 @@ import org.slf4j.LoggerFactory;
         sb.append("null");
       } else {
         sb.append(this.managedLocationUri);
+      }
+      first = false;
+    }
+    if (isSetType()) {
+      if (!first) sb.append(", ");
+      sb.append("type:");
+      if (this.type == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.type);
+      }
+      first = false;
+    }
+    if (isSetConnector_name()) {
+      if (!first) sb.append(", ");
+      sb.append("connector_name:");
+      if (this.connector_name == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.connector_name);
+      }
+      first = false;
+    }
+    if (isSetRemote_dbname()) {
+      if (!first) sb.append(", ");
+      sb.append("remote_dbname:");
+      if (this.remote_dbname == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.remote_dbname);
       }
       first = false;
     }
@@ -1178,6 +1433,30 @@ import org.slf4j.LoggerFactory;
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 11: // TYPE
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.type = org.apache.hadoop.hive.metastore.api.DatabaseType.findByValue(iprot.readI32());
+              struct.setTypeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 12: // CONNECTOR_NAME
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.connector_name = iprot.readString();
+              struct.setConnector_nameIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 13: // REMOTE_DBNAME
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.remote_dbname = iprot.readString();
+              struct.setRemote_dbnameIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -1259,6 +1538,27 @@ import org.slf4j.LoggerFactory;
           oprot.writeFieldEnd();
         }
       }
+      if (struct.type != null) {
+        if (struct.isSetType()) {
+          oprot.writeFieldBegin(TYPE_FIELD_DESC);
+          oprot.writeI32(struct.type.getValue());
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.connector_name != null) {
+        if (struct.isSetConnector_name()) {
+          oprot.writeFieldBegin(CONNECTOR_NAME_FIELD_DESC);
+          oprot.writeString(struct.connector_name);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.remote_dbname != null) {
+        if (struct.isSetRemote_dbname()) {
+          oprot.writeFieldBegin(REMOTE_DBNAME_FIELD_DESC);
+          oprot.writeString(struct.remote_dbname);
+          oprot.writeFieldEnd();
+        }
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -1307,7 +1607,16 @@ import org.slf4j.LoggerFactory;
       if (struct.isSetManagedLocationUri()) {
         optionals.set(9);
       }
-      oprot.writeBitSet(optionals, 10);
+      if (struct.isSetType()) {
+        optionals.set(10);
+      }
+      if (struct.isSetConnector_name()) {
+        optionals.set(11);
+      }
+      if (struct.isSetRemote_dbname()) {
+        optionals.set(12);
+      }
+      oprot.writeBitSet(optionals, 13);
       if (struct.isSetName()) {
         oprot.writeString(struct.name);
       }
@@ -1345,12 +1654,21 @@ import org.slf4j.LoggerFactory;
       if (struct.isSetManagedLocationUri()) {
         oprot.writeString(struct.managedLocationUri);
       }
+      if (struct.isSetType()) {
+        oprot.writeI32(struct.type.getValue());
+      }
+      if (struct.isSetConnector_name()) {
+        oprot.writeString(struct.connector_name);
+      }
+      if (struct.isSetRemote_dbname()) {
+        oprot.writeString(struct.remote_dbname);
+      }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, Database struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(10);
+      BitSet incoming = iprot.readBitSet(13);
       if (incoming.get(0)) {
         struct.name = iprot.readString();
         struct.setNameIsSet(true);
@@ -1402,6 +1720,18 @@ import org.slf4j.LoggerFactory;
       if (incoming.get(9)) {
         struct.managedLocationUri = iprot.readString();
         struct.setManagedLocationUriIsSet(true);
+      }
+      if (incoming.get(10)) {
+        struct.type = org.apache.hadoop.hive.metastore.api.DatabaseType.findByValue(iprot.readI32());
+        struct.setTypeIsSet(true);
+      }
+      if (incoming.get(11)) {
+        struct.connector_name = iprot.readString();
+        struct.setConnector_nameIsSet(true);
+      }
+      if (incoming.get(12)) {
+        struct.remote_dbname = iprot.readString();
+        struct.setRemote_dbnameIsSet(true);
       }
     }
   }

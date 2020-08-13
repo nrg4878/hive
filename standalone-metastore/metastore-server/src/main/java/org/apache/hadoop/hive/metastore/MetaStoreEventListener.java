@@ -37,12 +37,14 @@ import org.apache.hadoop.hive.metastore.events.AlterSchemaVersionEvent;
 import org.apache.hadoop.hive.metastore.events.AlterTableEvent;
 import org.apache.hadoop.hive.metastore.events.ConfigChangeEvent;
 import org.apache.hadoop.hive.metastore.events.CreateCatalogEvent;
+import org.apache.hadoop.hive.metastore.events.CreateDataConnectorEvent;
 import org.apache.hadoop.hive.metastore.events.CreateDatabaseEvent;
 import org.apache.hadoop.hive.metastore.events.CreateFunctionEvent;
 import org.apache.hadoop.hive.metastore.events.CreateISchemaEvent;
 import org.apache.hadoop.hive.metastore.events.CreateTableEvent;
 import org.apache.hadoop.hive.metastore.events.DropCatalogEvent;
 import org.apache.hadoop.hive.metastore.events.DropConstraintEvent;
+import org.apache.hadoop.hive.metastore.events.DropDataConnectorEvent;
 import org.apache.hadoop.hive.metastore.events.DropDatabaseEvent;
 import org.apache.hadoop.hive.metastore.events.DropFunctionEvent;
 import org.apache.hadoop.hive.metastore.events.DropISchemaEvent;
@@ -140,6 +142,20 @@ public abstract class MetaStoreEventListener implements Configurable {
    * @throws MetaException
    */
   public void onDropDatabase (DropDatabaseEvent dbEvent) throws MetaException {
+  }
+
+  /**
+   * @param connectorEvent  dataconnector event
+   * @throws MetaException
+   */
+  public void onCreateDataConnector (CreateDataConnectorEvent connectorEvent) throws MetaException {
+  }
+
+  /**
+   * @param connectorEvent dataconnector event
+   * @throws MetaException
+   */
+  public void onDropDataConnector (DropDataConnectorEvent connectorEvent) throws MetaException {
   }
 
   /**

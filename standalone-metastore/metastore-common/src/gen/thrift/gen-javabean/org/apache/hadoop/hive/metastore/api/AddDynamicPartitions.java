@@ -816,13 +816,13 @@ import org.slf4j.LoggerFactory;
           case 5: // PARTITIONNAMES
             if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
               {
-                org.apache.thrift.protocol.TList _list780 = iprot.readListBegin();
-                struct.partitionnames = new ArrayList<String>(_list780.size);
-                String _elem781;
-                for (int _i782 = 0; _i782 < _list780.size; ++_i782)
+                org.apache.thrift.protocol.TList _list790 = iprot.readListBegin();
+                struct.partitionnames = new ArrayList<String>(_list790.size);
+                String _elem791;
+                for (int _i792 = 0; _i792 < _list790.size; ++_i792)
                 {
-                  _elem781 = iprot.readString();
-                  struct.partitionnames.add(_elem781);
+                  _elem791 = iprot.readString();
+                  struct.partitionnames.add(_elem791);
                 }
                 iprot.readListEnd();
               }
@@ -872,9 +872,9 @@ import org.slf4j.LoggerFactory;
         oprot.writeFieldBegin(PARTITIONNAMES_FIELD_DESC);
         {
           oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, struct.partitionnames.size()));
-          for (String _iter783 : struct.partitionnames)
+          for (String _iter793 : struct.partitionnames)
           {
-            oprot.writeString(_iter783);
+            oprot.writeString(_iter793);
           }
           oprot.writeListEnd();
         }
@@ -910,9 +910,9 @@ import org.slf4j.LoggerFactory;
       oprot.writeString(struct.tablename);
       {
         oprot.writeI32(struct.partitionnames.size());
-        for (String _iter784 : struct.partitionnames)
+        for (String _iter794 : struct.partitionnames)
         {
-          oprot.writeString(_iter784);
+          oprot.writeString(_iter794);
         }
       }
       BitSet optionals = new BitSet();
@@ -937,13 +937,13 @@ import org.slf4j.LoggerFactory;
       struct.tablename = iprot.readString();
       struct.setTablenameIsSet(true);
       {
-        org.apache.thrift.protocol.TList _list785 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, iprot.readI32());
-        struct.partitionnames = new ArrayList<String>(_list785.size);
-        String _elem786;
-        for (int _i787 = 0; _i787 < _list785.size; ++_i787)
+        org.apache.thrift.protocol.TList _list795 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING, iprot.readI32());
+        struct.partitionnames = new ArrayList<String>(_list795.size);
+        String _elem796;
+        for (int _i797 = 0; _i797 < _list795.size; ++_i797)
         {
-          _elem786 = iprot.readString();
-          struct.partitionnames.add(_elem786);
+          _elem796 = iprot.readString();
+          struct.partitionnames.add(_elem796);
         }
       }
       struct.setPartitionnamesIsSet(true);

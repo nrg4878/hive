@@ -177,14 +177,14 @@ import org.slf4j.LoggerFactory;
           if (field.type == INSERT_DATAS_FIELD_DESC.type) {
             List<InsertEventRequestData> insertDatas;
             {
-              org.apache.thrift.protocol.TList _list836 = iprot.readListBegin();
-              insertDatas = new ArrayList<InsertEventRequestData>(_list836.size);
-              InsertEventRequestData _elem837;
-              for (int _i838 = 0; _i838 < _list836.size; ++_i838)
+              org.apache.thrift.protocol.TList _list846 = iprot.readListBegin();
+              insertDatas = new ArrayList<InsertEventRequestData>(_list846.size);
+              InsertEventRequestData _elem847;
+              for (int _i848 = 0; _i848 < _list846.size; ++_i848)
               {
-                _elem837 = new InsertEventRequestData();
-                _elem837.read(iprot);
-                insertDatas.add(_elem837);
+                _elem847 = new InsertEventRequestData();
+                _elem847.read(iprot);
+                insertDatas.add(_elem847);
               }
               iprot.readListEnd();
             }
@@ -213,9 +213,9 @@ import org.slf4j.LoggerFactory;
         List<InsertEventRequestData> insertDatas = (List<InsertEventRequestData>)value_;
         {
           oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, insertDatas.size()));
-          for (InsertEventRequestData _iter839 : insertDatas)
+          for (InsertEventRequestData _iter849 : insertDatas)
           {
-            _iter839.write(oprot);
+            _iter849.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -238,14 +238,14 @@ import org.slf4j.LoggerFactory;
         case INSERT_DATAS:
           List<InsertEventRequestData> insertDatas;
           {
-            org.apache.thrift.protocol.TList _list840 = iprot.readListBegin();
-            insertDatas = new ArrayList<InsertEventRequestData>(_list840.size);
-            InsertEventRequestData _elem841;
-            for (int _i842 = 0; _i842 < _list840.size; ++_i842)
+            org.apache.thrift.protocol.TList _list850 = iprot.readListBegin();
+            insertDatas = new ArrayList<InsertEventRequestData>(_list850.size);
+            InsertEventRequestData _elem851;
+            for (int _i852 = 0; _i852 < _list850.size; ++_i852)
             {
-              _elem841 = new InsertEventRequestData();
-              _elem841.read(iprot);
-              insertDatas.add(_elem841);
+              _elem851 = new InsertEventRequestData();
+              _elem851.read(iprot);
+              insertDatas.add(_elem851);
             }
             iprot.readListEnd();
           }
@@ -269,9 +269,9 @@ import org.slf4j.LoggerFactory;
         List<InsertEventRequestData> insertDatas = (List<InsertEventRequestData>)value_;
         {
           oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, insertDatas.size()));
-          for (InsertEventRequestData _iter843 : insertDatas)
+          for (InsertEventRequestData _iter853 : insertDatas)
           {
-            _iter843.write(oprot);
+            _iter853.write(oprot);
           }
           oprot.writeListEnd();
         }

@@ -471,6 +471,10 @@ public enum ErrorMsg {
           "Not an ordered-set aggregate function: {0}. WITHIN GROUP clause is not allowed.", true),
   WITHIN_GROUP_PARAMETER_MISMATCH(10422,
           "The number of hypothetical direct arguments ({0}) must match the number of ordering columns ({1})", true),
+  DATACONNECTOR_ALREADY_EXISTS(10423,
+      "Dataconnector {0} already exists", true),
+  DATACONNECTOR_NOT_EXISTS(10424, "Dataconnector does not exist:"),
+
 
   //========================== 20000 range starts here ========================//
 

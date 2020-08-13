@@ -127,6 +127,9 @@ public class MessageBuilder {
   public static final String DELETE_TBL_COL_STAT_EVENT = "DELETE_TBL_COL_STAT_EVENT";
   public static final String UPDATE_PART_COL_STAT_EVENT = "UPDATE_PART_COL_STAT_EVENT";
   public static final String DELETE_PART_COL_STAT_EVENT = "DELETE_PART_COL_STAT_EVENT";
+  public static final String CREATE_DATACONNECTOR_EVENT = "CREATE_DATACONNECTOR";
+  public static final String ALTER_DATACONNECTOR_EVENT = "ALTER_DATACONNECTOR";
+  public static final String DROP_DATACONNECTOR_EVENT = "DROP_DATACONNECTOR";
 
   protected static final Configuration conf = MetastoreConf.newMetastoreConf();
 
